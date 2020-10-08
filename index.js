@@ -103,7 +103,7 @@ const runBot = () => {
             preventing = true;
             setTimeout((channel) => {
                 if (preventing) {
-                    channel.disableFollowersOnly(channel);
+                    chatClient.disableFollowersOnly(channel);
                     preventing = false;
                 }
             }, 600000);
