@@ -24,9 +24,7 @@ This is a tiny little script that is supposed to automatically delete and ban Tw
           "refreshToken": "",
           "channels": ["<Username of Twitch-Account that authorizes the App>"]
       }
-    ```
-    Fill in the data and save it as `config.json` in the root of the repository.
-    
+    ```    
     **Hint:** if you don't want to turn on the Follower-Only Chat as soon as a flood of Spammers is detected, change `"followerOnly": true,` to `"followerOnly": false,`.
     
 4. Run `npm install` to install all dependencies
