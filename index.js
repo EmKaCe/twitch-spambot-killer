@@ -9,28 +9,31 @@ const config = JSON.parse(fs.readFileSync("./config.json"));
 const clientId = config.clientId;
 const clientSecret = config.clientSecret;
 
+const hostname = config.hostname;
+const pathname = config.pathname;
 const port = config.port;
+const followerOnly = config.followerOnly;
 
 const app = express();
 
 let server;
 
 if (!config.refreshToken) {
-    app.get("/bartspam/add", (req, res) => {
+    app.get("/" + pathname + "/add", (req, res) => {
         res.redirect("https://id.twitch.tv/oauth2/authorize?" +
             "client_id=" + clientId +
-            "&redirect_uri=http://emkace.de:20232/bartspam/auth" +
+            "&redirect_uri=http://" + hostname + ":" + port + "/" + pathname + "/auth" +
             "&response_type=code" +
             "&scope=chat:read+chat:edit+channel:moderate");
     });
 
-    app.get("/bartspam/auth", (req, res) => {
+    app.get("/" + pathname + "/auth", (req, res) => {
         if (req.query.code) {
             const code = req.query.code;
             const options = {
                 hostname: "id.twitch.tv",
                 port: 443,
-                path: "/oauth2/token?client_id=" + clientId + "&client_secret=" + clientSecret + "&code=" + code + "&grant_type=authorization_code&redirect_uri=http://emkace.de:" + port + "/bartspam/auth",
+                path: "/oauth2/token?client_id=" + clientId + "&client_secret=" + clientSecret + "&code=" + code + "&grant_type=authorization_code&redirect_uri=http://" + hostname + ":" + port + "/" + pathname + "/auth",
                 method: "POST"
             };
 
@@ -111,7 +114,9 @@ const runBot = () => {
         if (message.search("follow") !== -1) {
             if (message.search(/https?:\/\//) !== -1 || message.search(/\..?com/) !== -1) {
                 await chatClient.ban(channel, user, "AUTOBAN: Spambot detected!");
-                preventSpam(channel);
+                if (followerOnly) {
+                    preventSpam(channel);
+                }
             }
         } else {
             if (message === "?ping") {
