@@ -10,7 +10,7 @@ This is a tiny little script that is supposed to automatically delete and ban Tw
     Make sure that the OAuth Redirect URL leads to `http://<hostname>:<port>/<pathname>/auth`
     **Important:** Do not close the Site yet, since we still need some info from that page.
 
-3. Create a config.json in the folder of the repository that looks like this:
+3. Adjust the `config.json` in the root folder of the repository like this:
 
     ```
       {
