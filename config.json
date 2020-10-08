@@ -1,0 +1,11 @@
+{
+    "hostname": "",
+    "pathname": "",
+    "port": "",
+    "followerOnly": true,
+    "clientId": "",
+    "accessToken": "",
+    "clientSecret": "",
+    "refreshToken": "",
+    "channels": [""]
+}
